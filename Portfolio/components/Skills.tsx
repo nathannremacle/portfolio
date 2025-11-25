@@ -1,11 +1,17 @@
 'use client'
 
-import { Code, Database, Smartphone, Cloud, GitBranch, Shield } from 'lucide-react'
+import { Code, Database, Cloud, GitBranch, Shield } from 'lucide-react'
 
 interface SkillCategory {
   title: string
   icon: React.ElementType
   skills: string[]
+}
+
+interface SkillItem {
+  category: string
+  icon: React.ElementType
+  skill: string
 }
 
 const skillCategories: SkillCategory[] = [
@@ -16,7 +22,7 @@ const skillCategories: SkillCategory[] = [
   },
   {
     title: 'APIs & Data',
-    icon: Database, // L'icône base de données convient bien aux APIs/Flux
+    icon: Database,
     skills: ['YouTube Data API', 'Hashnode GraphQL', 'RSS', 'JSON/XML'],
   },
   {
@@ -26,44 +32,53 @@ const skillCategories: SkillCategory[] = [
   },
   {
     title: 'Tech & Innovation',
-    icon: Cloud, // L'icône Cloud ou CPU convient pour l'IA et le Web
+    icon: Cloud,
     skills: ['AI Prompting', 'SEO', 'Veille Technologique'],
   },
   {
     title: 'Ingénierie (Bac 2)',
-    icon: Shield, // Symbolise la rigueur ou "PenTool" si disponible
+    icon: Shield,
     skills: ['Mathématiques', 'Physique', 'Algorithmique', 'Analyse', 'Résolution de problèmes'],
   },
 ]
 
+const marqueeSkills: SkillItem[] = skillCategories.flatMap((category) =>
+  category.skills.map((skill) => ({
+    category: category.title,
+    icon: category.icon,
+    skill,
+  }))
+)
+
+const repeatedSkills = [...marqueeSkills, ...marqueeSkills]
+
 export default function Skills() {
   return (
-    <section id="skills" className="py-20 px-4 bg-gray-950">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl font-bold mb-12 text-center">Compétences</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillCategories.map((category) => {
-            const Icon = category.icon
+    <section id="skills" className="py-16 px-4 bg-gray-950 space-y-12">
+      <div className="max-w-6xl mx-auto text-center">
+        <h2 className="text-4xl font-bold mb-4">Compétences</h2>
+        <p className="text-gray-400">
+          Une sélection de technologies et de domaines que j&apos;utilise au quotidien, présentés
+          dans une bande dynamique.
+        </p>
+      </div>
+
+      <div className="skill-marquee-wrapper relative overflow-hidden rounded-3xl border border-gray-800 bg-gray-900/40 px-6 sm:px-10 py-6 w-full">
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-gray-950 via-gray-950/80 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-gray-950 via-gray-950/80 to-transparent" />
+
+        <div className="skill-marquee-content flex gap-4">
+          {repeatedSkills.map((item, index) => {
+            const Icon = item.icon
             return (
               <div
-                key={category.title}
-                className="bg-gray-900 rounded-lg p-6 border border-gray-800 hover:border-gray-700 transition-colors duration-200"
+                key={`${item.skill}-${index}`}
+                className="flex items-center gap-3 px-4 py-2 bg-gray-900/80 border border-gray-800 rounded-full min-w-max backdrop-blur"
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <Icon size={24} className="text-gray-400" />
-                  <h3 className="text-xl font-semibold">{category.title}</h3>
-                </div>
-                
-                <div className="flex flex-wrap gap-2">
-                  {category.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1 bg-gray-800 text-sm rounded text-gray-300"
-                    >
-                      {skill}
-                    </span>
-                  ))}
+                <Icon size={18} className="text-gray-400" />
+                <div className="text-left">
+                  <p className="text-sm font-medium text-white">{item.skill}</p>
+                  <p className="text-xs text-gray-400">{item.category}</p>
                 </div>
               </div>
             )
@@ -73,6 +88,4 @@ export default function Skills() {
     </section>
   )
 }
-
-
 

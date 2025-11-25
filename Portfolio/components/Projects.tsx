@@ -1,7 +1,8 @@
 'use client'
 
-import { ExternalLink, Github } from 'lucide-react'
+import { ExternalLink, Github, X } from 'lucide-react'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 interface Project {
   id: number
@@ -21,7 +22,7 @@ const projects: Project[] = [
     technologies: ['Python', 'GitHub Actions', 'YouTube Data API', 'FFmpeg'], 
     githubUrl: 'https://github.com/anymeredifftwitch/art',
     liveUrl: 'https://www.youtube.com/@AnymeRediffTwitch',
-    image: '/logoanyme.png',
+    image: '/projet1.png',
   },
   {
     id: 2,
@@ -30,23 +31,54 @@ const projects: Project[] = [
     technologies: ['Python', 'Google Gemini 2.0', 'GitHub Actions', 'Pollinations.ai (Flux)', 'Hashnode GraphQL'],
     githubUrl: 'https://github.com/nathannremacle/blogremacle',
     liveUrl: 'https://remacle.hashnode.dev',
-    image: '/logoremacle.png',
+    image: '/projet2.png',
   },
 ]
 
 export default function Projects() {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow
+
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+
+    return () => {
+      document.body.style.overflow = originalOverflow
+    }
+  }, [selectedProject])
+
+  useEffect(() => {
+    if (!selectedProject) return
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setSelectedProject(null)
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [selectedProject])
+
   return (
-    <section id="projects" className="py-20 px-4">
+    <section id="projects" className="py-16 px-4">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-bold mb-12 text-center">Projets</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {projects.map((project) => (
-            <div
+            <button
               key={project.id}
-              className="bg-gray-900 rounded-lg overflow-hidden border border-gray-800 hover:border-gray-700 transition-colors duration-200"
+              type="button"
+              onClick={() => setSelectedProject(project)}
+              className="text-left bg-gray-900 rounded-xl overflow-hidden border border-gray-800 hover:border-gray-700 hover:-translate-y-1 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-600"
             >
-              <div className="relative h-48 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+              <div className="relative aspect-video w-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
                 {project.image ? (
                   <Image
                     src={project.image}
@@ -59,50 +91,109 @@ export default function Projects() {
                 )}
               </div>
               
-              <div className="p-6">
-                <h3 className="text-2xl font-semibold mb-2">{project.title}</h3>
-                <p className="text-gray-400 mb-4">{project.description}</p>
+              <div className="p-4 space-y-3">
+                <h3 className="text-xl font-semibold line-clamp-2">{project.title}</h3>
+                <p className="text-gray-400 text-sm line-clamp-3">{project.description}</p>
                 
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech) => (
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.slice(0, 3).map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 bg-gray-800 text-sm rounded-full text-gray-300"
+                      className="px-2 py-0.5 bg-gray-800 text-xs rounded-full text-gray-300"
                     >
                       {tech}
                     </span>
                   ))}
-                </div>
-                
-                <div className="flex gap-4">
-                  {project.githubUrl && (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
-                    >
-                      <Github size={18} />
-                      <span>Code</span>
-                    </a>
-                  )}
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
-                    >
-                      <ExternalLink size={18} />
-                      <span>Live</span>
-                    </a>
+                  {project.technologies.length > 3 && (
+                    <span className="px-2 py-0.5 bg-gray-800 text-xs rounded-full text-gray-400">
+                      +{project.technologies.length - 3}
+                    </span>
                   )}
                 </div>
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </div>
+
+      {selectedProject && (
+        <div
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 px-4"
+          onClick={() => setSelectedProject(null)}
+        >
+          <div
+            className="max-w-3xl w-full bg-gray-950 border border-gray-800 rounded-2xl overflow-hidden shadow-2xl"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Projet ${selectedProject.title}`}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="relative aspect-video w-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+              {selectedProject.image ? (
+                <Image
+                  src={selectedProject.image}
+                  alt={selectedProject.title}
+                  fill
+                  className="object-cover"
+                />
+              ) : (
+                <span className="text-6xl text-gray-700">💻</span>
+              )}
+              <button
+                type="button"
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-4 right-4 bg-black/60 rounded-full p-2 text-white hover:bg-black/80 transition-colors"
+                aria-label="Fermer"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="p-8 space-y-6">
+              <div>
+                <h3 className="text-3xl font-semibold mb-2">{selectedProject.title}</h3>
+                <p className="text-gray-400">{selectedProject.description}</p>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                {selectedProject.technologies.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-3 py-1 bg-gray-900 border border-gray-800 text-sm rounded-full text-gray-200"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-4">
+                {selectedProject.githubUrl && (
+                  <a
+                    href={selectedProject.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-gray-200 hover:text-white transition-colors"
+                  >
+                    <Github size={20} />
+                    <span>Code</span>
+                  </a>
+                )}
+                {selectedProject.liveUrl && (
+                  <a
+                    href={selectedProject.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-gray-200 hover:text-white transition-colors"
+                  >
+                    <ExternalLink size={20} />
+                    <span>Live</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }

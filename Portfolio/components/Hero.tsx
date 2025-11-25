@@ -11,7 +11,7 @@ export default function Hero() {
   ]
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-4 py-20">
+    <section className="min-h-screen flex items-center justify-center px-4 py-16">
       <div className="max-w-4xl mx-auto text-center">
         <div className="mb-8">
           <div className="relative w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-2 border-gray-800">

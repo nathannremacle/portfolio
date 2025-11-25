@@ -31,5 +31,23 @@ body {
   font-family: 'Inter', system-ui, sans-serif;
 }
 
+.skill-marquee-content {
+  animation: skill-marquee 25s linear infinite;
+  will-change: transform;
+}
+
+.skill-marquee-wrapper:hover .skill-marquee-content {
+  animation-play-state: paused;
+}
+
+@keyframes skill-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 
 
