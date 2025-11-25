@@ -68,7 +68,7 @@ export default function Projects() {
   return (
     <section id="projects" className="py-16 px-4">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl font-bold mb-12 text-center">Projets</h2>
+        <h2 className="text-4xl font-bold mb-12 text-center text-white">Projets</h2>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {projects.map((project) => (
@@ -76,9 +76,9 @@ export default function Projects() {
               key={project.id}
               type="button"
               onClick={() => setSelectedProject(project)}
-              className="text-left bg-gray-900 rounded-xl overflow-hidden border border-gray-800 hover:border-gray-700 hover:-translate-y-1 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-600"
+              className="text-left bg-black/40 rounded-xl overflow-hidden border border-white/5 hover:border-[#c4a5e8]/30 hover:-translate-y-1 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6366f1]"
             >
-              <div className="relative aspect-video w-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+              <div className="relative aspect-video w-full bg-black/20 flex items-center justify-center">
                 {project.image ? (
                   <Image
                     src={project.image}
@@ -87,25 +87,25 @@ export default function Projects() {
                     className="object-cover"
                   />
                 ) : (
-                  <span className="text-6xl text-gray-700">💻</span>
+                  <span className="text-6xl text-gray-600">💻</span>
                 )}
               </div>
               
               <div className="p-4 space-y-3">
-                <h3 className="text-xl font-semibold line-clamp-2">{project.title}</h3>
+                <h3 className="text-xl font-semibold line-clamp-2 text-white">{project.title}</h3>
                 <p className="text-gray-400 text-sm line-clamp-3">{project.description}</p>
                 
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.slice(0, 3).map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-0.5 bg-gray-800 text-xs rounded-full text-gray-300"
+                      className="px-2 py-0.5 bg-black/40 border border-white/5 text-xs rounded-full text-gray-300"
                     >
                       {tech}
                     </span>
                   ))}
                   {project.technologies.length > 3 && (
-                    <span className="px-2 py-0.5 bg-gray-800 text-xs rounded-full text-gray-400">
+                    <span className="px-2 py-0.5 bg-black/30 backdrop-blur-sm border border-white/10 text-xs rounded-full text-gray-400">
                       +{project.technologies.length - 3}
                     </span>
                   )}
@@ -118,17 +118,17 @@ export default function Projects() {
 
       {selectedProject && (
         <div
-          className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 px-4"
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 px-4"
           onClick={() => setSelectedProject(null)}
         >
           <div
-            className="max-w-3xl w-full bg-gray-950 border border-gray-800 rounded-2xl overflow-hidden shadow-2xl"
+            className="max-w-3xl w-full bg-black/60 border border-white/10 rounded-2xl overflow-hidden"
             role="dialog"
             aria-modal="true"
             aria-label={`Projet ${selectedProject.title}`}
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="relative aspect-video w-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+            <div className="relative aspect-video w-full bg-black/20 flex items-center justify-center">
               {selectedProject.image ? (
                 <Image
                   src={selectedProject.image}
@@ -137,12 +137,12 @@ export default function Projects() {
                   className="object-cover"
                 />
               ) : (
-                <span className="text-6xl text-gray-700">💻</span>
+                <span className="text-6xl text-gray-600">💻</span>
               )}
               <button
                 type="button"
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 bg-black/60 rounded-full p-2 text-white hover:bg-black/80 transition-colors"
+                className="absolute top-4 right-4 bg-black/70 border border-white/10 rounded-full p-2 text-white hover:bg-black/80 hover:border-[#6366f1] transition-colors"
                 aria-label="Fermer"
               >
                 <X size={20} />
@@ -151,15 +151,15 @@ export default function Projects() {
 
             <div className="p-8 space-y-6">
               <div>
-                <h3 className="text-3xl font-semibold mb-2">{selectedProject.title}</h3>
-                <p className="text-gray-400">{selectedProject.description}</p>
+                <h3 className="text-3xl font-semibold mb-2 text-white">{selectedProject.title}</h3>
+                <p className="text-gray-300">{selectedProject.description}</p>
               </div>
 
               <div className="flex flex-wrap gap-2">
                 {selectedProject.technologies.map((tech) => (
                   <span
                     key={tech}
-                    className="px-3 py-1 bg-gray-900 border border-gray-800 text-sm rounded-full text-gray-200"
+                    className="px-3 py-1 bg-black/40 border border-white/5 text-sm rounded-full text-gray-300"
                   >
                     {tech}
                   </span>
@@ -172,7 +172,7 @@ export default function Projects() {
                     href={selectedProject.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-gray-200 hover:text-white transition-colors"
+                    className="inline-flex items-center gap-2 text-[#6366f1] hover:text-[#c4a5e8] transition-colors"
                   >
                     <Github size={20} />
                     <span>Code</span>
@@ -183,7 +183,7 @@ export default function Projects() {
                     href={selectedProject.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-gray-200 hover:text-white transition-colors"
+                    className="inline-flex items-center gap-2 text-[#6366f1] hover:text-[#c4a5e8] transition-colors"
                   >
                     <ExternalLink size={20} />
                     <span>Live</span>

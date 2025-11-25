@@ -14,7 +14,7 @@ export default function Hero() {
     <section className="min-h-screen flex items-center justify-center px-4 py-16">
       <div className="max-w-4xl mx-auto text-center">
         <div className="mb-8">
-          <div className="relative w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-2 border-gray-800">
+          <div className="relative w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-2 border-white/10">
             <Image
               src="/profile.png"
               alt="Nathan Remacle"
@@ -25,11 +25,11 @@ export default function Hero() {
           </div>
         </div>
         
-        <h1 className="text-5xl md:text-6x1 font-bold mb-5 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+        <h1 className="text-5xl md:text-6x1 font-bold mb-5 text-white">
           Nathan Remacle
         </h1>
         
-        <p className="text-xl md:text-2xl text-gray-400 mb-8 max-w-2xl mx-auto">
+        <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
           Étudiant en ingénierie civile à l'Université de Liège
         </p>
         
@@ -42,7 +42,7 @@ export default function Hero() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors duration-200"
+                className="text-gray-300 hover:text-white transition-colors duration-200"
                 aria-label={link.label}
               >
                 <Icon size={24} />

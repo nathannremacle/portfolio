@@ -6,8 +6,9 @@
 
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
+  --lavender: #c4a5e8;
+  --indigo: #6366f1;
+  --indigo-rich: #4f46e5;
 }
 
 * {
@@ -22,13 +23,24 @@ html {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
   font-family: 'Inter', system-ui, sans-serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse at 0% 0%, rgba(196, 165, 232, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 100%, rgba(79, 70, 229, 0.5) 0%, transparent 50%),
+    #000000;
+  z-index: -1;
+  background-attachment: fixed;
 }
 
 .skill-marquee-content {
@@ -48,6 +60,7 @@ body {
     transform: translateX(-50%);
   }
 }
+
 
 
 
