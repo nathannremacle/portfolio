@@ -58,8 +58,7 @@ export default function Skills() {
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-4xl font-bold mb-4">Compétences</h2>
         <p className="text-gray-400">
-          Une sélection de technologies et de domaines que j&apos;utilise au quotidien, présentés
-          dans une bande dynamique.
+          Une sélection non exhaustive de technologies et de domaines que j&apos;utilise au quotidien. Certaines compétences sont issues de mon cursus universitaire mais la majorité sont issues de mes propres recherches et expériences.
         </p>
       </div>
 
