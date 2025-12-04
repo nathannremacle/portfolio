@@ -54,7 +54,7 @@ const repeatedSkills = [...marqueeSkills, ...marqueeSkills]
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-16 px-4 bg-gray-950 space-y-12">
+    <section id="skills" className="py-16 px-4 space-y-12">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-4xl font-bold mb-4">Compétences</h2>
         <p className="text-gray-400">
@@ -63,8 +63,8 @@ export default function Skills() {
       </div>
 
       <div className="skill-marquee-wrapper relative overflow-hidden rounded-3xl border border-gray-800 bg-gray-900/40 px-6 sm:px-10 py-6 w-full">
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-gray-950 via-gray-950/80 to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-gray-950 via-gray-950/80 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black via-black/80 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black via-black/80 to-transparent" />
 
         <div className="skill-marquee-content flex gap-4">
           {repeatedSkills.map((item, index) => {
