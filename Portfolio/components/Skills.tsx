@@ -1,90 +1,89 @@
 'use client'
 
-import { Code, Database, Cloud, GitBranch, Shield } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { skills } from '@/data/content'
+import Section from './Section'
 
-interface SkillCategory {
-  title: string
-  icon: React.ElementType
-  skills: string[]
-}
-
-interface SkillItem {
-  category: string
-  icon: React.ElementType
-  skill: string
-}
-
-const skillCategories: SkillCategory[] = [
-  {
-    title: 'Langages & Scripting',
-    icon: Code,
-    skills: ['Python', 'C', 'Automatisation', 'Scripting'],
-  },
-  {
-    title: 'APIs & Data',
-    icon: Database,
-    skills: ['YouTube Data API', 'Hashnode GraphQL', 'RSS', 'JSON/XML'],
-  },
-  {
-    title: 'DevOps & Outils',
-    icon: GitBranch,
-    skills: ['GitHub', 'GitHub Actions', 'FFmpeg', 'Sublime Text', 'Excel', 'Cursor'],
-  },
-  {
-    title: 'Tech & Innovation',
-    icon: Cloud,
-    skills: ['AI Prompting', 'SEO', 'Veille Technologique'],
-  },
-  {
-    title: 'Ingénierie (Bac 2)',
-    icon: Shield,
-    skills: ['Mathématiques', 'Physique', 'Algorithmique', 'Analyse', 'Résolution de problèmes'],
-  },
-]
-
-const marqueeSkills: SkillItem[] = skillCategories.flatMap((category) =>
-  category.skills.map((skill) => ({
-    category: category.title,
-    icon: category.icon,
-    skill,
-  }))
-)
-
-const repeatedSkills = [...marqueeSkills, ...marqueeSkills]
+// Double the skills array for seamless loop
+const marqueeSkills = [...skills, ...skills]
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-16 px-4 space-y-12">
-      <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-4xl font-bold mb-4">Compétences</h2>
-        <p className="text-gray-400">
-          Une sélection non exhaustive de technologies et de domaines que j&apos;utilise au quotidien. Certaines compétences sont issues de mon cursus universitaire mais la majorité sont issues de mes propres recherches et expériences.
-        </p>
-      </div>
+    <Section id="skills" number="02" title="Sollertia" subtitle="Compétences">
+      <div className="space-y-8">
+        {/* Description */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-pine-600 text-lg max-w-2xl"
+        >
+          Technologies et domaines de maîtrise, acquis en formation et par l'expérience pratique sur des projets personnels.
+        </motion.p>
 
-      <div className="skill-marquee-wrapper relative overflow-hidden rounded-3xl border border-gray-800 bg-gray-900/40 px-6 sm:px-10 py-6 w-full">
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black via-black/80 to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black via-black/80 to-transparent" />
+        {/* Marquee Container */}
+        <div className="relative -mx-6 lg:-mx-12 overflow-hidden">
+          {/* Gradient Masks */}
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-stone-warm to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-stone-warm to-transparent z-10" />
 
-        <div className="skill-marquee-content flex gap-4">
-          {repeatedSkills.map((item, index) => {
-            const Icon = item.icon
-            return (
-              <div
-                key={`${item.skill}-${index}`}
-                className="flex items-center gap-3 px-4 py-2 bg-gray-900/80 border border-gray-800 rounded-full min-w-max backdrop-blur"
+          {/* First Row - Normal */}
+          <div className="marquee-track py-4">
+            {marqueeSkills.map((skill, index) => (
+              <motion.div
+                key={`${skill.name}-${index}`}
+                whileHover={{ scale: 1.05, y: -2 }}
+                className="flex-shrink-0 mx-2 px-5 py-3 bg-stone-light border border-pine-800/10 rounded-full hover:border-accent/50 hover:bg-white transition-all cursor-default"
               >
-                <Icon size={18} className="text-gray-400" />
-                <div className="text-left">
-                  <p className="text-sm font-medium text-white">{item.skill}</p>
-                  <p className="text-xs text-gray-400">{item.category}</p>
-                </div>
-              </div>
-            )
-          })}
+                <span className="text-sm font-medium text-pine-800 whitespace-nowrap">
+                  {skill.name}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Second Row - Reverse (optional, for visual richness) */}
+          <div className="marquee-track py-4" style={{ animationDirection: 'reverse', animationDuration: '35s' }}>
+            {[...marqueeSkills].reverse().map((skill, index) => (
+              <motion.div
+                key={`reverse-${skill.name}-${index}`}
+                whileHover={{ scale: 1.05, y: -2 }}
+                className="flex-shrink-0 mx-2 px-5 py-3 bg-stone-light border border-pine-800/10 rounded-full hover:border-accent/50 hover:bg-white transition-all cursor-default"
+              >
+                <span className="text-sm font-medium text-pine-800 whitespace-nowrap">
+                  {skill.name}
+                </span>
+              </motion.div>
+            ))}
+          </div>
         </div>
+
+        {/* Categories Legend */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex flex-wrap gap-6 pt-8 border-t border-pine-800/10"
+        >
+          {[
+            { key: 'languages', label: 'Langages' },
+            { key: 'apis', label: 'APIs & Data' },
+            { key: 'devops', label: 'DevOps' },
+            { key: 'engineering', label: 'Ingénierie' },
+          ].map((category) => (
+            <div key={category.key} className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-pine-800/40" />
+              <span className="text-sm text-pine-500 font-mono">{category.label}</span>
+              <span className="text-xs text-pine-400">
+                ({skills.filter(s => s.category === category.key).length})
+              </span>
+            </div>
+          ))}
+        </motion.div>
       </div>
-    </section>
+    </Section>
   )
 }
 

@@ -1,21 +1,49 @@
 'use client'
 
 import { useState } from 'react'
-import { Send, Mail, MapPin, Phone } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Send, Mail, MapPin, ArrowUpRight } from 'lucide-react'
+import { personal, socials } from '@/data/content'
+import Section from './Section'
 
 export default function Contact() {
+  type SubmitStatus = 'idle' | 'loading' | 'success' | 'error'
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: '',
   })
+  const [status, setStatus] = useState<SubmitStatus>('idle')
+  const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Ici vous pouvez ajouter la logique d'envoi du formulaire
-    console.log('Form submitted:', formData)
-    alert('Message envoyé avec succès!')
-    setFormData({ name: '', email: '', message: '' })
+    const sendMessage = async () => {
+      try {
+        setStatus('loading')
+        setError(null)
+
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        })
+
+        if (!response.ok) {
+          const data = await response.json().catch(() => ({}))
+          throw new Error(data?.error || 'Une erreur est survenue.')
+        }
+
+        setStatus('success')
+        setFormData({ name: '', email: '', message: '' })
+      } catch (err) {
+        setStatus('error')
+        setError(err instanceof Error ? err.message : 'Une erreur est survenue.')
+      }
+    }
+
+    void sendMessage()
   }
 
   const handleChange = (
@@ -28,28 +56,86 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-16 px-4">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl font-bold mb-12 text-center text-white">Contact</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+    <Section id="contact" number="04" title="Contactus" subtitle="Contact">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        {/* Left Column - Info */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="space-y-8"
+        >
           <div>
-            <h3 className="text-2xl font-semibold mb-6 text-white">Restons en contact</h3>
-            <p className="text-gray-300 mb-8">
-              N'hésitez pas à me contacter pour discuter de projets, opportunités ou simplement pour échanger.
+            <h3 className="font-serif text-3xl text-pine-800 mb-4">
+              Discutons de votre projet
+            </h3>
+            <p className="text-pine-600 leading-relaxed">
+              Opportunités, collaborations ou simplement échanger sur des idées — 
+              je suis toujours ouvert à la discussion.
             </p>
-            
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 text-gray-300">
-                <Mail size={20} />
-                <span>nathanremacle@engineer.com</span>
+          </div>
+
+          <div className="space-y-4">
+            <a
+              href={`mailto:${personal.email}`}
+              className="group flex items-center gap-4 p-4 bg-stone-light rounded-xl border border-pine-800/10 hover:border-accent/30 transition-all"
+            >
+              <div className="p-3 bg-stone-warm rounded-lg">
+                <Mail size={20} className="text-pine-800" />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm text-pine-400 font-mono">Email</p>
+                <p className="text-pine-800 font-medium group-hover:text-accent transition-colors">
+                  {personal.email}
+                </p>
+              </div>
+              <ArrowUpRight size={18} className="text-pine-300 group-hover:text-accent transition-colors" />
+            </a>
+
+            <div className="flex items-center gap-4 p-4 bg-stone-light rounded-xl border border-pine-800/10">
+              <div className="p-3 bg-stone-warm rounded-lg">
+                <MapPin size={20} className="text-pine-800" />
+              </div>
+              <div>
+                <p className="text-sm text-pine-400 font-mono">Localisation</p>
+                <p className="text-pine-800 font-medium">{personal.location}</p>
               </div>
             </div>
           </div>
-          
-          <form onSubmit={handleSubmit} className="space-y-6">
+
+          {/* Social Links */}
+          <div className="pt-4">
+            <p className="text-sm text-pine-400 font-mono mb-4">Retrouvez-moi sur</p>
+            <div className="flex flex-wrap gap-3">
+              {socials.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-2 px-4 py-2 bg-stone-light border border-pine-800/10 rounded-full text-sm text-pine-600 hover:border-accent/30 hover:text-accent transition-all"
+                >
+                  {social.name}
+                  <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Right Column - Form */}
+        <motion.form
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          onSubmit={handleSubmit}
+          className="bg-stone-light rounded-2xl border border-pine-800/10 p-8"
+        >
+          <div className="space-y-6">
             <div>
-              <label htmlFor="name" className="block mb-2 text-sm font-medium text-white">
+              <label htmlFor="name" className="block mb-2 text-sm font-medium text-pine-700">
                 Nom
               </label>
               <input
@@ -59,13 +145,13 @@ export default function Contact() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-black/40 border border-white/5 rounded-lg focus:outline-none focus:border-[#6366f1] text-white placeholder:text-gray-500"
+                className="w-full px-4 py-3 bg-stone-warm border border-pine-800/10 rounded-xl focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 text-pine-800 placeholder:text-pine-300 transition-all"
                 placeholder="Votre nom"
               />
             </div>
-            
+
             <div>
-              <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">
+              <label htmlFor="email" className="block mb-2 text-sm font-medium text-pine-700">
                 Email
               </label>
               <input
@@ -75,13 +161,13 @@ export default function Contact() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-black/40 border border-white/5 rounded-lg focus:outline-none focus:border-[#6366f1] text-white placeholder:text-gray-500"
+                className="w-full px-4 py-3 bg-stone-warm border border-pine-800/10 rounded-xl focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 text-pine-800 placeholder:text-pine-300 transition-all"
                 placeholder="votre@email.com"
               />
             </div>
-            
+
             <div>
-              <label htmlFor="message" className="block mb-2 text-sm font-medium text-white">
+              <label htmlFor="message" className="block mb-2 text-sm font-medium text-pine-700">
                 Message
               </label>
               <textarea
@@ -91,24 +177,41 @@ export default function Contact() {
                 onChange={handleChange}
                 required
                 rows={5}
-                className="w-full px-4 py-3 bg-black/30 backdrop-blur-sm border border-white/10 rounded-lg focus:outline-none focus:border-[#6366f1] text-white resize-none placeholder:text-gray-500"
+                className="w-full px-4 py-3 bg-stone-warm border border-pine-800/10 rounded-xl focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 text-pine-800 resize-none placeholder:text-pine-300 transition-all"
                 placeholder="Votre message..."
               />
             </div>
-            
+
+            {status === 'success' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-4 bg-pine-50 text-pine-800 rounded-xl text-sm border border-pine-100"
+              >
+                ✓ Message envoyé avec succès !
+              </motion.div>
+            )}
+            {status === 'error' && error && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-4 bg-red-50 text-red-700 rounded-xl text-sm border border-red-100"
+              >
+                ✗ {error}
+              </motion.div>
+            )}
+
             <button
               type="submit"
-              className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#6366f1] to-[#4f46e5] text-white rounded-lg font-semibold hover:from-[#818cf8] hover:to-[#6366f1] transition-all duration-200 shadow-lg shadow-[#6366f1]/30"
+              disabled={status === 'loading'}
+              className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-pine-800 text-stone-warm rounded-xl font-medium hover:bg-accent transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Send size={18} />
-              Envoyer
+              {status === 'loading' ? 'Envoi...' : 'Envoyer le message'}
             </button>
-          </form>
-        </div>
+          </div>
+        </motion.form>
       </div>
-    </section>
+    </Section>
   )
 }
-
-
-
