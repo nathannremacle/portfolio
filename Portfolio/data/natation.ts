@@ -22,13 +22,13 @@ export const natationImages: NatationImage[] = [
     filename: 'natation-1.png',
     date: '24/04/2022',
     lieu: 'Piscine Olympique du Wezenberg à Anvers',
-    description: "Cette photo a été prise lors du Championnat de Belgique Open (bassin 50m), juste après le relais 4x100m 4 nages. Je venais de terminer ma course (freestyle), décrochant pour l'équipe et moi une médaille de vice-champion.\nCrédits: Clément Lourtie, Tristan Hessens, Augustin Ficher, Moi.",
+    description: "Cette photo a été prise lors du Championnat de Belgique Open (bassin 50m), juste après le relais 4x100m 4 nages. Je venais de terminer ma course (freestyle), décrochant pour l'équipe et moi une médaille de vice-champion.\nCrédits: Clément Lourtie, Tristan Hessens, Augustin Ficher, Nathan Remacle (Moi).",
   },
   {
     filename: 'natation-2.png',
     date: '21/04/2023',
     lieu: 'Piscine Olympique du Wezenberg à Anvers',
-    description: "Cette photo a été prise lors du Championnat de Belgique Open (bassin 50m), afin d'immortaliser ce moment unique de l'année, et l'ambiance positive qu'il régnait dans mon club de natation de l'époque; le Swimming Team Dison (STD). Crédits: Clémence Sevrin, Gabriel Struys, Moi, Olivier Laudauer, Noé Doyen.",
+    description: "Cette photo a été prise lors du Championnat de Belgique Open (bassin 50m). Elle immortalise un moment unique de l'année et l'excellente ambiance qui régnait au sein de mon club de natation de l'époque, le Swimming Team Dison (STD). Crédits photo : Clémence Sevrin, Gabriel Struys, Nathan Remacle (Moi), Olivier Laudauer, Noé Doyen.",
   },
   {
     filename: 'natation-3.png',
