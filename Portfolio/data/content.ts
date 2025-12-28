@@ -170,38 +170,6 @@ La progression se mesure en secondes gagnées.`,
       { label: 'Focus', value: 'Cardio' },
     ],
   },
-  {
-    id: 'musculation',
-    title: 'Musculation',
-    subtitle: 'Force & Hypertrophie',
-    description: 'Programme structuré axé sur la progression mesurable.',
-    longDescription: `La musculation représente la discipline et la constance. Programme structuré combinant force et hypertrophie, avec une progression mesurée et des objectifs précis.
-
-Comme en ingénierie, tout est question de charge progressive, de récupération optimale et d'ajustements constants basés sur les données de performance.`,
-    year: 'Continu',
-    category: 'sport',
-    highlights: ['Force', 'Hypertrophie', 'PPL Split', 'Progressive Overload'],
-    stats: [
-      { label: 'Fréquence', value: '5x/sem' },
-      { label: 'Focus', value: 'Force' },
-    ],
-  },
-  {
-    id: 'course',
-    title: 'Course à pied',
-    subtitle: 'Endurance & Mental',
-    description: 'Running régulier pour l\'endurance et la clarté mentale.',
-    longDescription: `La course à pied est autant un exercice physique que mental. Chaque kilomètre est une opportunité de repousser ses limites et de clarifier ses pensées.
-
-L'endurance développée en course se traduit directement dans la capacité à rester concentré sur des problèmes complexes pendant de longues heures.`,
-    year: 'Continu',
-    category: 'sport',
-    highlights: ['Endurance', 'Zone 2', 'Interval Training', 'Mental'],
-    stats: [
-      { label: 'Fréquence', value: '2x/sem' },
-      { label: 'Focus', value: 'Cardio' },
-    ],
-  },
 ]
 
 // === COMPÉTENCES ===

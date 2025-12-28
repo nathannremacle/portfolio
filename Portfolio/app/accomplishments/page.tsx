@@ -15,7 +15,6 @@ const categoryLabels: Record<string, string> = {
 export default function AccomplishmentsPage() {
   // Separate by category
   const education = accomplishments.filter(a => a.category === 'education')
-  const sports = accomplishments.filter(a => a.category === 'sport')
   const professional = accomplishments.filter(a => a.category === 'professional')
   const personal = accomplishments.filter(a => a.category === 'personal')
 
@@ -138,62 +137,56 @@ export default function AccomplishmentsPage() {
             </div>
           )}
 
-          {/* Sport Section */}
-          {sports.length > 0 && (
-            <div>
-              <h2 className="font-serif text-3xl text-pine-800 mb-8">Sport</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {sports.map((item, index) => (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                  >
-                    <Link
-                      href={`/accomplishment/${item.id}`}
-                      className="group block relative overflow-hidden rounded-2xl bg-stone-light text-pine-800 border border-pine-800/10 hover:border-pine-800/30 transition-colors h-full min-h-[250px]"
-                    >
-                      {/* Content */}
-                      <div className="relative z-10 h-full flex flex-col justify-between p-6">
-                        <div className="flex items-start justify-between">
-                          <span className="px-2 py-0.5 bg-pine-800/5 text-pine-600 text-xs font-mono rounded">
-                            {categoryLabels[item.category]}
-                          </span>
-                          
-                          <div className="w-8 h-8 rounded-full bg-pine-800 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <ArrowUpRight size={14} className="text-stone-warm" />
-                          </div>
-                        </div>
+          {/* Natation Section */}
+          <div>
+            <h2 className="font-serif text-3xl text-pine-800 mb-8">Natation</h2>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <Link
+                href="/other/natation"
+                className="group block relative overflow-hidden rounded-2xl bg-pine-800 text-stone-warm min-h-[400px]"
+              >
+                {/* Grid Pattern Background */}
+                <div 
+                  className="absolute inset-0 opacity-20"
+                  style={{
+                    backgroundImage: `
+                      linear-gradient(rgba(242, 240, 233, 0.1) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(242, 240, 233, 0.1) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '24px 24px',
+                  }}
+                />
 
-                        <div>
-                          <h3 className="font-serif text-2xl text-pine-800 mb-1 group-hover:translate-x-1 transition-transform duration-300">
-                            {item.title}
-                          </h3>
-                          <p className="text-pine-500 text-sm mb-3">
-                            {item.subtitle}
-                          </p>
-                          
-                          {/* Stats */}
-                          {item.stats && item.stats.length > 0 && (
-                            <div className="flex gap-4 pt-3 border-t border-pine-800/10">
-                              {item.stats.map((stat) => (
-                                <div key={stat.label}>
-                                  <span className="block text-xl font-serif text-pine-800">{stat.value}</span>
-                                  <span className="text-xs text-pine-400 font-mono">{stat.label}</span>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          )}
+                {/* Content */}
+                <div className="relative z-10 h-full flex flex-col justify-between p-8 md:p-12">
+                  <div className="flex items-start justify-between">
+                    <span className="px-3 py-1 bg-stone-warm/10 text-stone-warm/80 text-xs font-mono rounded-full border border-stone-warm/20">
+                      Galerie
+                    </span>
+                    
+                    <div className="w-10 h-10 rounded-full bg-stone-warm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <ArrowUpRight size={18} className="text-pine-800" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="font-serif text-4xl md:text-5xl text-stone-warm mb-4 group-hover:translate-x-2 transition-transform duration-300">
+                      Plus qu'un sport
+                    </h3>
+                    <p className="text-stone-warm/70 text-lg mb-6 max-w-2xl">
+                      Une collection de moments capturés lors de mes entraînements et compétitions de natation. 
+                      Chaque image témoigne de la discipline, de la technique et de la passion pour ce sport complet.
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          </div>
 
           {/* Professional Section */}
           {professional.length > 0 && (
@@ -265,6 +258,60 @@ export default function AccomplishmentsPage() {
               </div>
             </div>
           )}
+
+          {/* Art Section */}
+          <div>
+            <h2 className="font-serif text-3xl text-pine-800 mb-8">Art</h2>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <Link
+                href="/other/art"
+                className="group block relative overflow-hidden rounded-2xl bg-pine-800 text-stone-warm min-h-[400px]"
+              >
+                {/* Grid Pattern Background */}
+                <div 
+                  className="absolute inset-0 opacity-20"
+                  style={{
+                    backgroundImage: `
+                      linear-gradient(rgba(242, 240, 233, 0.1) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(242, 240, 233, 0.1) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '24px 24px',
+                  }}
+                />
+
+                {/* Content */}
+                <div className="relative z-10 h-full flex flex-col justify-between p-8 md:p-12">
+                  <div className="flex items-start justify-between">
+                    <span className="px-3 py-1 bg-stone-warm/10 text-stone-warm/80 text-xs font-mono rounded-full border border-stone-warm/20">
+                      Galerie
+                    </span>
+                    
+                    <div className="w-10 h-10 rounded-full bg-stone-warm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <ArrowUpRight size={18} className="text-pine-800" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="font-serif text-4xl md:text-5xl text-stone-warm mb-4 group-hover:translate-x-2 transition-transform duration-300">
+                      Dessins & Peintures
+                    </h3>
+                    <p className="text-stone-warm/70 text-lg mb-6 max-w-2xl">
+                      Une sélection de mes créations artistiques, du dessin à la peinture. 
+                      Ces œuvres témoignent de mon évolution au fil des années.
+                    </p>
+                    <p className="text-stone-warm/50 text-sm italic">
+                      Le premier dessin exposé date de mes 15 ans.
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          </div>
         </div>
       </section>
     </main>

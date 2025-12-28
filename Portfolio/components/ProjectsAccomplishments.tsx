@@ -169,7 +169,7 @@ export default function ProjectsAccomplishments() {
             style={{ aspectRatio: '7/5', background: 'transparent' }}
           >
             <Link
-              href="/accomplishments"
+              href="/other"
               className="group relative block w-full h-full cursor-pointer overflow-visible"
               style={{ 
                 background: 'transparent',
