@@ -25,42 +25,71 @@ export default function Hero() {
           </motion.div>
 
           {/* Main Title - Mixed Typography */}
-          <div className="space-y-2">
-            <motion.h1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-serif text-pine-800 leading-none"
-            >
-              <motion.span 
-                className="inline-block cursor-default"
-                whileHover={{ 
-                  color: '#D97706',
-                  transition: { duration: 0.2 }
-                }}
+          <div className="relative">
+            {/* Texte dans sa disposition originale */}
+            <div className="space-y-2">
+              <motion.h1
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-serif text-pine-800 leading-none"
               >
-                {personal.title.line1}
-              </motion.span>
-            </motion.h1>
+                <motion.span 
+                  className="inline-block cursor-default"
+                  whileHover={{ 
+                    color: '#D97706',
+                    transition: { duration: 0.2 }
+                  }}
+                >
+                  {personal.title.line1}
+                </motion.span>
+              </motion.h1>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="flex items-baseline gap-4 sm:gap-6"
+              >
+                <span className="text-3xl sm:text-4xl lg:text-5xl text-pine-400 font-light">
+                  {personal.title.connector}
+                </span>
+                <motion.span 
+                  className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-sans font-bold text-pine-800 tracking-tight cursor-default"
+                  whileHover={{ 
+                    color: '#D97706',
+                    transition: { duration: 0.2 }
+                  }}
+                >
+                  {personal.title.line2}
+                </motion.span>
+              </motion.div>
+            </div>
             
+            {/* Image positionnée absolument à droite, ne perturbe pas le flux du texte */}
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex items-baseline gap-4 sm:gap-6"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="absolute right-20 -translate-x-1/2 -top-8 h-[600px] sm:h-[550px] lg:h-[600px] group"
             >
-              <span className="text-3xl sm:text-4xl lg:text-5xl text-pine-400 font-light">
-                {personal.title.connector}
-              </span>
-              <motion.span 
-                className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-sans font-bold text-pine-800 tracking-tight cursor-default"
-                whileHover={{ 
-                  color: '#D97706',
-                  transition: { duration: 0.2 }
-                }}
-              >
-                {personal.title.line2}
-              </motion.span>
+              {/* Conteneur relatif pour superposer les images */}
+              <div className="relative h-full w-auto">
+                {/* Image claire (en dessous) */}
+                <img
+                  src="/headerimage.png"
+                  alt=""
+                  className="h-full w-auto object-contain"
+                  style={{ mixBlendMode: 'multiply' }}
+                />
+                {/* Image sombre (au dessus, disparaît au hover) */}
+                <img
+                  src="/headerimagegreen2.png"
+                  alt=""
+                  className="h-full w-auto object-contain absolute top-0 left-0 transition-opacity duration-300 group-hover:opacity-0"
+                  style={{ mixBlendMode: 'multiply' }}
+                />
+              </div>
             </motion.div>
           </div>
 
@@ -71,7 +100,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg sm:text-xl text-pine-600 max-w-xl font-light leading-relaxed"
           >
-            {personal.role} à l'<span className="font-medium">{personal.university}</span>
+            {personal.role} à l'<span className="font-medium hover:text-accent transition-colors cursor-default">{personal.university}</span>
           </motion.p>
         </div>
 
