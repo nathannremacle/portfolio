@@ -149,7 +149,7 @@ export default function UnderConstruction() {
       {/* Header */}
       <header className="relative z-10 w-full flex justify-between items-center border-b border-pine-800/10 pb-6">
         <div>
-          <span className="font-serif text-2xl font-semibold tracking-tight text-pine-900 block leading-none">
+          <span className="font-sans text-xl font-bold uppercase tracking-widest text-pine-900 block leading-none">
             Nathan Remacle
           </span>
           <span className="font-mono text-[10px] uppercase tracking-widest text-pine-500 mt-1 block">
