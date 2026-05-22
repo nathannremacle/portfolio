@@ -57,9 +57,9 @@ export default function UnderConstruction() {
   }
 
   const backgroundFormulas = [
-    { text: "E = mc²", style: "top-[9%] left-[45%] rotate-12 text-base font-bold text-accent/70 hover:opacity-[0.25]" },
+    { text: "E = mc²", style: "top-[9%] left-[45%] rotate-12 text-base font-bold text-accent/80 hover:opacity-[0.45]" },
     // Block de code en C (sur la gauche, aucunement caché par le formulaire)
-    { text: "// C Programming", style: "top-[20%] left-[3%] -rotate-1 text-xs opacity-[0.02] hover:opacity-[0.08]" },
+    { text: "// C Programming", style: "top-[20%] left-[3%] -rotate-1 text-xs" },
     { text: "#include <stdio.h>", style: "top-[24%] left-[3%] -rotate-1 text-xs" },
     { text: "int main() {", style: "top-[28%] left-[3%] -rotate-1 text-xs" },
     { text: "  printf(\"Hello, World!\\n\");", style: "top-[32%] left-[5%] -rotate-1 text-xs font-semibold" },
@@ -90,7 +90,7 @@ export default function UnderConstruction() {
         {backgroundFormulas.map((item, idx) => (
           <motion.div
             key={idx}
-            className={`absolute hidden md:block select-none pointer-events-none opacity-[0.04] transition-opacity duration-700 hover:opacity-[0.12] ${item.style}`}
+            className={`absolute select-none pointer-events-none opacity-[0.14] transition-opacity duration-700 hover:opacity-[0.50] ${item.style}`}
             initial={{ y: 0, x: 0 }}
             animate={{ 
               y: [0, idx % 2 === 0 ? 12 : -12, 0],
