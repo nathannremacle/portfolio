@@ -57,17 +57,25 @@ export default function UnderConstruction() {
   }
 
   const backgroundFormulas = [
-    { text: "σ = M · y / I", style: "top-[15%] left-[5%] -rotate-12 text-sm" },
-    { text: "d²(EI d²w/dx²)/dx² = q(x)", style: "top-[32%] left-[8%] rotate-6 text-xs" },
-    { text: "ρ(∂u/∂t + u·∇u) = -∇p + μ∇²u", style: "top-[25%] right-[22%] -rotate-6 text-xs" },
-    { text: "E_d ≤ R_d", style: "top-[8%] right-[40%] rotate-12 font-bold text-sm" },
-    { text: "σ = E · ε", style: "bottom-[20%] left-[12%] -rotate-6 text-sm" },
+    { text: "E = mc²", style: "top-[9%] left-[45%] rotate-12 text-base font-bold text-accent/70 hover:opacity-[0.25]" },
+    // Block de code en C (sur la gauche, aucunement caché par le formulaire)
+    { text: "// C Programming", style: "top-[20%] left-[3%] -rotate-1 text-xs opacity-[0.02] hover:opacity-[0.08]" },
+    { text: "#include <stdio.h>", style: "top-[24%] left-[3%] -rotate-1 text-xs" },
+    { text: "int main() {", style: "top-[28%] left-[3%] -rotate-1 text-xs" },
+    { text: "  printf(\"Hello, World!\\n\");", style: "top-[32%] left-[5%] -rotate-1 text-xs font-semibold" },
+    { text: "  return 0;", style: "top-[36%] left-[5%] -rotate-1 text-xs" },
+    { text: "}", style: "top-[40%] left-[3%] -rotate-1 text-xs" },
+    // Équations de Génie Civil (placées stratégiquement)
+    { text: "d²(EI d²w/dx²)/dx² = q(x)", style: "bottom-[45%] left-[6%] rotate-6 text-xs" },
+    { text: "σ = E · ε", style: "bottom-[22%] left-[10%] -rotate-6 text-sm" },
     { text: "τ = V · Q / (I · b)", style: "bottom-[35%] left-[4%] rotate-12 text-xs" },
-    { text: "p + ½ρv² + ρgh = C", style: "top-[48%] right-[32%] rotate-4 text-[10px]" },
-    { text: "θ = M·L / (E·I)", style: "bottom-[30%] right-[35%] -rotate-12 text-xs" },
-    { text: "GRID REF: 50-N4 // SEC_A-A", style: "top-[18%] left-[42%] rotate-0 text-[9px] tracking-wider" },
-    { text: "SCALE: 1:25 // ALL DIM. IN MM", style: "bottom-[15%] right-[10%] -rotate-90 text-[9px] tracking-wider" },
-    { text: "ULIÈGE // CIVIL ENG. DEPT", style: "top-[5%] left-[28%] rotate-0 text-[9px] tracking-wider" },
+    { text: "p + ½ρv² + ρgh = C", style: "bottom-[12%] left-[28%] rotate-4 text-[10px]" },
+    { text: "θ = M·L / (E·I)", style: "top-[5%] left-[28%] rotate-0 text-[10px]" },
+    { text: "E_d ≤ R_d", style: "bottom-[28%] left-[42%] rotate-12 text-xs" },
+    // Références techniques (haut et bas pour éviter le formulaire)
+    { text: "GRID REF: 50-N4 // SEC_A-A", style: "top-[15%] left-[68%] rotate-0 text-[9px] tracking-wider" },
+    { text: "SCALE: 1:25 // ALL DIM. IN MM", style: "bottom-[15%] right-[8%] -rotate-90 text-[9px] tracking-wider" },
+    { text: "ULIÈGE // DEPT. D'INGÉNIERIE", style: "top-[5%] left-[60%] rotate-0 text-[9px] tracking-wider" },
     { text: "PROJECT CODE: NR-2026-PORTFOLIO", style: "bottom-[42%] left-[48%] rotate-90 text-[8px] tracking-wider" },
   ]
 
