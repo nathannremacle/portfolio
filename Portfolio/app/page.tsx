@@ -10,10 +10,8 @@ import {
   Check, 
   Loader2, 
   AlertCircle, 
-  Compass, 
-  ArrowRight
+  Compass
 } from 'lucide-react'
-import Link from 'next/link'
 
 export default function UnderConstruction() {
   const [name, setName] = useState('')
@@ -330,18 +328,10 @@ export default function UnderConstruction() {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 w-full flex flex-col sm:flex-row justify-between items-center border-t border-pine-800/10 pt-6 gap-4">
-        <p className="font-mono text-[10px] text-pine-450 text-center sm:text-left">
+      <footer className="relative z-10 w-full flex justify-center items-center border-t border-pine-800/10 pt-6">
+        <p className="font-mono text-[10px] text-pine-450 text-center">
           © {new Date().getFullYear()} Nathan Remacle. Tous droits réservés.
         </p>
-        
-        <Link 
-          href="/v1" 
-          className="inline-flex items-center gap-1.5 font-mono text-[11px] text-pine-550 hover:text-pine-800 font-semibold transition-all duration-300 hover:gap-2 border border-pine-800/10 hover:border-pine-800/30 bg-stone-light/50 px-4 py-2 rounded-full hover:shadow-subtle"
-        >
-          <span>Consulter l'ancienne version v1</span>
-          <ArrowRight size={12} />
-        </Link>
       </footer>
       
       {/* Slow pulse ambient background lights */}
