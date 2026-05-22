@@ -56,11 +56,48 @@ export default function UnderConstruction() {
     }
   }
 
+  const backgroundFormulas = [
+    { text: "σ = M · y / I", style: "top-[15%] left-[5%] -rotate-12 text-sm" },
+    { text: "d²(EI d²w/dx²)/dx² = q(x)", style: "top-[32%] left-[8%] rotate-6 text-xs" },
+    { text: "ρ(∂u/∂t + u·∇u) = -∇p + μ∇²u", style: "top-[25%] right-[22%] -rotate-6 text-xs" },
+    { text: "E_d ≤ R_d", style: "top-[8%] right-[40%] rotate-12 font-bold text-sm" },
+    { text: "σ = E · ε", style: "bottom-[20%] left-[12%] -rotate-6 text-sm" },
+    { text: "τ = V · Q / (I · b)", style: "bottom-[35%] left-[4%] rotate-12 text-xs" },
+    { text: "p + ½ρv² + ρgh = C", style: "top-[48%] right-[32%] rotate-4 text-[10px]" },
+    { text: "θ = M·L / (E·I)", style: "bottom-[30%] right-[35%] -rotate-12 text-xs" },
+    { text: "GRID REF: 50-N4 // SEC_A-A", style: "top-[18%] left-[42%] rotate-0 text-[9px] tracking-wider" },
+    { text: "SCALE: 1:25 // ALL DIM. IN MM", style: "bottom-[15%] right-[10%] -rotate-90 text-[9px] tracking-wider" },
+    { text: "ULIÈGE // CIVIL ENG. DEPT", style: "top-[5%] left-[28%] rotate-0 text-[9px] tracking-wider" },
+    { text: "PROJECT CODE: NR-2026-PORTFOLIO", style: "bottom-[42%] left-[48%] rotate-90 text-[8px] tracking-wider" },
+  ]
+
   return (
     <div className="relative min-h-screen bg-stone-warm text-pine-800 overflow-hidden flex flex-col justify-between p-6 md:p-12 font-sans selection:bg-pine-500/10">
       
       {/* Swiss Editorial Grid Overlay */}
       <div className="absolute inset-0 grid-lines pointer-events-none opacity-80" />
+
+      {/* Dynamic Animated Engineering Formulas */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden font-mono text-pine-800 select-none">
+        {backgroundFormulas.map((item, idx) => (
+          <motion.div
+            key={idx}
+            className={`absolute hidden md:block select-none pointer-events-none opacity-[0.04] transition-opacity duration-700 hover:opacity-[0.12] ${item.style}`}
+            initial={{ y: 0, x: 0 }}
+            animate={{ 
+              y: [0, idx % 2 === 0 ? 12 : -12, 0],
+              x: [0, idx % 3 === 0 ? 8 : -8, 0]
+            }}
+            transition={{
+              duration: 12 + (idx % 4) * 5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            {item.text}
+          </motion.div>
+        ))}
+      </div>
 
       {/* Decorative Technical / Engineering SVG Graphic (Civil Engineering motif) */}
       <div className="absolute -right-48 -top-48 w-[600px] h-[600px] md:w-[800px] md:h-[800px] pointer-events-none opacity-[0.12] z-0 select-none">
