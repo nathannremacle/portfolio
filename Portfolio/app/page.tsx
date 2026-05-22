@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import React, { useState, useEffect } from 'react'
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { 
   Github, 
   Linkedin, 
@@ -13,12 +13,72 @@ import {
   Compass
 } from 'lucide-react'
 
+interface FloatingFormulaProps {
+  item: {
+    element: React.ReactNode
+    style: string
+  }
+  index: number
+  springX: any
+  springY: any
+}
+
+function FloatingFormula({ item, index, springX, springY }: FloatingFormulaProps) {
+  // Facteurs de déplacement parallaxe uniques basés sur l'index (mouvement subtil de 12px à 26px max)
+  const factorX = index % 3 === 0 ? 18 : index % 3 === 1 ? -14 : 26
+  const factorY = index % 2 === 0 ? -18 : 22
+
+  const mouseTransX = useTransform(springX, (val: number) => val * factorX)
+  const mouseTransY = useTransform(springY, (val: number) => val * factorY)
+
+  return (
+    <motion.div
+      className={`absolute select-none pointer-events-none opacity-[0.09] transition-opacity duration-700 hover:opacity-[0.40] ${item.style}`}
+      initial={{ y: 0, x: 0 }}
+      animate={{ 
+        y: [0, index % 2 === 0 ? 12 : -12, 0],
+        x: [0, index % 3 === 0 ? 8 : -8, 0]
+      }}
+      transition={{
+        duration: 14 + (index % 4) * 5,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}
+    >
+      <motion.div style={{ x: mouseTransX, y: mouseTransY }}>
+        {item.element}
+      </motion.div>
+    </motion.div>
+  )
+}
+
 export default function UnderConstruction() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [feedbackMsg, setFeedbackMsg] = useState('')
+
+  // Mouse position tracking for floating equations parallax effect
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+
+  const springConfig = { damping: 30, stiffness: 90, mass: 0.8 }
+  const springX = useSpring(mouseX, springConfig)
+  const springY = useSpring(mouseY, springConfig)
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      // Normalize mouse coordinates: clientX/width ranges from -0.5 to 0.5
+      const x = (e.clientX / window.innerWidth) - 0.5
+      const y = (e.clientY / window.innerHeight) - 0.5
+      mouseX.set(x)
+      mouseY.set(y)
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [mouseX, mouseY])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -181,22 +241,13 @@ export default function UnderConstruction() {
       {/* Dynamic Animated Engineering Formulas */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden font-mono text-pine-800 select-none">
         {backgroundFormulas.map((item, idx) => (
-          <motion.div
+          <FloatingFormula
             key={idx}
-            className={`absolute select-none pointer-events-none opacity-[0.14] transition-opacity duration-700 hover:opacity-[0.50] ${item.style}`}
-            initial={{ y: 0, x: 0 }}
-            animate={{ 
-              y: [0, idx % 2 === 0 ? 12 : -12, 0],
-              x: [0, idx % 3 === 0 ? 8 : -8, 0]
-            }}
-            transition={{
-              duration: 12 + (idx % 4) * 5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          >
-            {item.element}
-          </motion.div>
+            item={item}
+            index={idx}
+            springX={springX}
+            springY={springY}
+          />
         ))}
       </div>
 
