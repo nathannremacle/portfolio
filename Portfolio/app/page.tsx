@@ -57,26 +57,119 @@ export default function UnderConstruction() {
   }
 
   const backgroundFormulas = [
-    { text: "E = mc²", style: "top-[9%] left-[45%] rotate-12 text-base font-bold text-accent/80 hover:opacity-[0.45]" },
+    {
+      element: (
+        <span className="text-accent/90 font-bold">
+          E = mc<sup>2</sup>
+        </span>
+      ),
+      style: "top-[10%] left-[28%] rotate-6 text-sm font-bold text-accent/80 hover:opacity-[0.45]"
+    },
     // Block de code en C (sur la gauche, aucunement caché par le formulaire)
-    { text: "// C Programming", style: "top-[20%] left-[3%] -rotate-1 text-xs" },
-    { text: "#include <stdio.h>", style: "top-[24%] left-[3%] -rotate-1 text-xs" },
-    { text: "int main() {", style: "top-[28%] left-[3%] -rotate-1 text-xs" },
-    { text: "  printf(\"Hello, World!\\n\");", style: "top-[32%] left-[5%] -rotate-1 text-xs font-semibold" },
-    { text: "  return 0;", style: "top-[36%] left-[5%] -rotate-1 text-xs" },
-    { text: "}", style: "top-[40%] left-[3%] -rotate-1 text-xs" },
-    // Équations de Génie Civil (placées stratégiquement)
-    { text: "d²(EI d²w/dx²)/dx² = q(x)", style: "bottom-[45%] left-[6%] rotate-6 text-xs" },
-    { text: "σ = E · ε", style: "bottom-[22%] left-[10%] -rotate-6 text-sm" },
-    { text: "τ = V · Q / (I · b)", style: "bottom-[35%] left-[4%] rotate-12 text-xs" },
-    { text: "p + ½ρv² + ρgh = C", style: "bottom-[12%] left-[28%] rotate-4 text-[10px]" },
-    { text: "θ = M·L / (E·I)", style: "top-[5%] left-[28%] rotate-0 text-[10px]" },
-    { text: "E_d ≤ R_d", style: "bottom-[28%] left-[42%] rotate-12 text-xs" },
-    // Références techniques (haut et bas pour éviter le formulaire)
-    { text: "GRID REF: 50-N4 // SEC_A-A", style: "top-[15%] left-[68%] rotate-0 text-[9px] tracking-wider" },
-    { text: "SCALE: 1:25 // ALL DIM. IN MM", style: "bottom-[15%] right-[8%] -rotate-90 text-[9px] tracking-wider" },
-    { text: "ULIÈGE // DEPT. D'INGÉNIERIE", style: "top-[5%] left-[60%] rotate-0 text-[9px] tracking-wider" },
-    { text: "PROJECT CODE: NR-2026-PORTFOLIO", style: "bottom-[42%] left-[48%] rotate-90 text-[8px] tracking-wider" },
+    {
+      element: <span>// C Programming</span>,
+      style: "top-[20%] left-[3%] -rotate-1 text-xs text-pine-600/80"
+    },
+    {
+      element: <span>#include &lt;stdio.h&gt;</span>,
+      style: "top-[24%] left-[3%] -rotate-1 text-xs"
+    },
+    {
+      element: <span>int main() {"{"}</span>,
+      style: "top-[28%] left-[3%] -rotate-1 text-xs"
+    },
+    {
+      element: <span className="font-semibold">  printf("Hello, World!\n");</span>,
+      style: "top-[32%] left-[5%] -rotate-1 text-xs"
+    },
+    {
+      element: <span>  return 0;</span>,
+      style: "top-[36%] left-[5%] -rotate-1 text-xs"
+    },
+    {
+      element: <span>{"}"}</span>,
+      style: "top-[40%] left-[3%] -rotate-1 text-xs"
+    },
+    // Équations de Génie Civil (placées stratégiquement sur le tiers gauche)
+    {
+      element: (
+        <div className="inline-flex items-center gap-0.5 font-mono">
+          <div className="inline-flex flex-col items-center leading-none text-[10px]">
+            <span className="border-b border-pine-800/80 pb-0.5">d<sup>2</sup></span>
+            <span className="pt-0.5">dx<sup>2</sup></span>
+          </div>
+          <span className="text-xs">&nbsp;(EI&nbsp;</span>
+          <div className="inline-flex flex-col items-center leading-none text-[10px]">
+            <span className="border-b border-pine-800/80 pb-0.5">d<sup>2</sup>w</span>
+            <span className="pt-0.5">dx<sup>2</sup></span>
+          </div>
+          <span className="text-xs">&nbsp;) = q(x)</span>
+        </div>
+      ),
+      style: "bottom-[45%] left-[4%] rotate-3 text-xs"
+    },
+    {
+      element: <span>&sigma; = E &middot; &epsilon;</span>,
+      style: "bottom-[24%] left-[10%] -rotate-6 text-sm"
+    },
+    {
+      element: (
+        <div className="inline-flex items-center gap-1 font-mono">
+          <span className="text-xs">&tau; =</span>
+          <div className="inline-flex flex-col items-center leading-none text-[10px]">
+            <span className="border-b border-pine-800/80 pb-0.5">V &middot; Q</span>
+            <span className="pt-0.5">I &middot; b</span>
+          </div>
+        </div>
+      ),
+      style: "bottom-[35%] left-[3%] rotate-6 text-xs"
+    },
+    {
+      element: (
+        <div className="inline-flex items-center gap-0.5 text-xs font-mono">
+          <span>p +</span>
+          <div className="inline-flex flex-col items-center leading-none text-[9px] mx-0.5">
+            <span className="border-b border-pine-800/80 pb-0.5">1</span>
+            <span className="pt-0.5">2</span>
+          </div>
+          <span>&rho;v<sup>2</sup> + &rho;gh = C</span>
+        </div>
+      ),
+      style: "bottom-[12%] left-[15%] rotate-3 text-xs"
+    },
+    {
+      element: (
+        <div className="inline-flex items-center gap-1 font-mono">
+          <span className="text-xs">&theta; =</span>
+          <div className="inline-flex flex-col items-center leading-none text-[10px]">
+            <span className="border-b border-pine-800/80 pb-0.5">M &middot; L</span>
+            <span className="pt-0.5">E &middot; I</span>
+          </div>
+        </div>
+      ),
+      style: "top-[6%] left-[30%] rotate-0 text-xs"
+    },
+    {
+      element: <span>E<sub>d</sub> &le; R<sub>d</sub></span>,
+      style: "bottom-[28%] left-[24%] rotate-6 text-xs"
+    },
+    // Références techniques (placées à gauche pour éviter tout chevauchement avec le formulaire)
+    {
+      element: <span>GRID REF: 50-N4 // SEC_A-A</span>,
+      style: "top-[16%] left-[3%] rotate-0 text-[9px] tracking-wider"
+    },
+    {
+      element: <span>SCALE: 1:25 // ALL DIM. IN MM</span>,
+      style: "bottom-[8%] left-[3%] rotate-0 text-[9px] tracking-wider"
+    },
+    {
+      element: <span>ULIÈGE // DEPT. D'INGÉNIERIE</span>,
+      style: "top-[6%] left-[14%] rotate-0 text-[9px] tracking-wider"
+    },
+    {
+      element: <span>PROJECT CODE: NR-2026-PORTFOLIO</span>,
+      style: "bottom-[45%] left-[26%] rotate-90 text-[8px] tracking-wider origin-left"
+    },
   ]
 
   return (
@@ -102,7 +195,7 @@ export default function UnderConstruction() {
               ease: "easeInOut"
             }}
           >
-            {item.text}
+            {item.element}
           </motion.div>
         ))}
       </div>
